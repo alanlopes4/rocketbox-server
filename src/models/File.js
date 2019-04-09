@@ -21,7 +21,8 @@ const File = new mongoose.Schema(
 );
 //Criando um campo virtual, não vai existir no BD
 File.virtual("url").get(function() {
-  return `htpp://localhost:3333/files/${encodeURIComponent(this.path)}`;
+  const url = process.env.URL || "htpp://localhost:3333";
+  return `${url}/files/${encodeURIComponent(this.path)}`;
 });
 
 module.exports = mongoose.model("File", File);
